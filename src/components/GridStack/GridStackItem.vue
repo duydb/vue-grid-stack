@@ -18,16 +18,12 @@ export default {
   mounted () {
     this.$el.$gs_change = this.onChange
     this.addItem(this.$el, this.x, this.y, this.width, this.height, true)
-    this.$el.addEventListener('gs_change', e => {
-      console.log(e)
-    })
   },
   destroyed () {
     this.removeItem(this.$el)
   },
   methods: {
     onChange (e) {
-      console.log('onChange', e)
       this.$emit('change', e)
       this.$emit('update:x', e.x)
       this.$emit('update:y', e.y)
