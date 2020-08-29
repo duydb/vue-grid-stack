@@ -28,16 +28,19 @@ export default {
   mounted () {
     this.$nextTick(() => {
       this.instance = GridStack.init(this.options, this.$refs.gs)
-      this.instance.on('change', function (e, items) {
+      this.instance.on('change', (e, items) => {
         items.forEach(item => {
-          if (item.el && typeof item.el.$gs_change === 'function') {
-            item.el.$gs_change(item)
-          }
+          this.processItemChange(item)
+        })
+      })
+      this.instance.on('added', (e, items) => {
+        items.forEach(item => {
+          this.processItemChange(item)
         })
       })
       while (this.pre.length > 0) {
         const args = this.pre.shift()
-        this.instance.addWidget(...args)
+        this.addItem(...args)
       }
     })
   },
@@ -50,7 +53,14 @@ export default {
       }
     },
     removeItem (...args) {
-      this.instance.removeWidget(...args)
+      if (this.instance) {
+        this.instance.removeWidget(...args)
+      }
+    },
+    processItemChange (item) {
+      if (item.el && typeof item.el.$gs_change === 'function') {
+        item.el.$gs_change(item)
+      }
     }
   }
 }
