@@ -3,10 +3,12 @@
     <button @click.prevent="addItem">add item</button>
     <GridStack>
       <GridStackItem v-for="item in items" :key="item.id" :x.sync="item.x" :y.sync="item.y" :width.sync="item.width" :height.sync="item.height">
-        {{item.name}}
-        <div>
-          <a @click.prevent="removeItem(item)" href="#">remove</a>
-        </div>
+        <template slot-scope="{remove}">
+          {{item.name}}
+          <div>
+            <a @click.prevent="remove(() => removeItem(item))" href="#">remove</a>
+          </div>
+        </template>
       </GridStackItem>
     </GridStack>
     <table>

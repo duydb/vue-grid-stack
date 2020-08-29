@@ -1,7 +1,7 @@
 <template>
   <div class="grid-stack-item">
     <div class="grid-stack-item-content">
-      <slot></slot>
+      <slot :remove="remove"></slot>
     </div>
   </div>
 </template>
@@ -19,9 +19,6 @@ export default {
     this.$el.$gs_change = this.onChange
     this.addItem(this.$el, this.x, this.y, this.width, this.height, true)
   },
-  destroyed () {
-    this.removeItem(this.$el)
-  },
   methods: {
     onChange (e) {
       this.$emit('change', e)
@@ -29,6 +26,10 @@ export default {
       this.$emit('update:y', e.y)
       this.$emit('update:width', e.width)
       this.$emit('update:height', e.height)
+    },
+    remove (callback) {
+      this.removeItem(this.$el)
+      if (typeof callback === 'function') callback()
     }
   }
 }

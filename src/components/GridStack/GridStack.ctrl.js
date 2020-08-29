@@ -7,6 +7,7 @@ export default {
     options: {
       type: Object,
       default: () => ({
+        // float: false
         // resizable: {
         //   handles: 'e, se, s, sw, w, n, nw, ne'
         // }
