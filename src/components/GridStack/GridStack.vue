@@ -12,8 +12,12 @@
   background: #fafad2;
   min-height: 400px;
 }
+.grid-stack-item {
+  padding: 0;
+}
 .grid-stack-item-content {
-  background-color: #18bc9c;
+  border: 1px solid #18bc9c;
+  background-color: rgba(24, 188, 156, .5);
   text-align: center;
   padding-top: 2px;
 }

@@ -1,7 +1,20 @@
 <template>
   <div id="app">
+    <div>
     <button @click.prevent="addItem">add item</button>
-    <GridStack>
+    </div>
+    <div style="margin: 10px 0">
+      <strong>Overlapping</strong>
+      <label>
+        <input v-model="allowOverlap" type="radio" :value="true">
+        YES
+      </label>
+      <label>
+        <input v-model="allowOverlap" type="radio" :value="false">
+        NO
+      </label>
+    </div>
+    <GridStack ref="grid" :options="{allowOverlap: allowOverlap, float: true}">
       <GridStackItem v-for="item in items" :key="item.id" :x.sync="item.x" :y.sync="item.y" :width.sync="item.width" :height.sync="item.height">
         <template slot-scope="{remove}">
           {{item.name}}
@@ -54,11 +67,22 @@ export default {
   data () {
     return {
       items: [],
-      count: 1
+      count: 1,
+      allowOverlap: true
     }
   },
   mounted () {
-    for (let i = 1; i <= 5; i++) this.addItem()
+    this.items = 
+    [
+      {id: 1, name:	'Item 1', x: 0, y: 0, width: 3, height:	2},
+      {id: 2, name:	'Item 2', x: 2, y: 0, width: 2, height:	1},
+      {id: 3, name:	'Item 3', x: 4, y: 0, width: 2, height:	1},
+      {id: 4, name:	'Item 4', x: 6, y: 0, width: 2, height:	1},
+      {id: 5, name:	'Item 5', x: 8, y: 0, width: 2, height:	1},
+      {id: 6, name:	'Item 6', x: 10, y: 0, width: 2, height:	1}
+    ]
+    this.count = 7
+    // for (let i = 1; i <= 5; i++) this.addItem()
   },
   methods: {
     addItem () {
